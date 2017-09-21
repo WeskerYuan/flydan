@@ -1,0 +1,243 @@
+﻿# Release Notes.
+
+# Copyright:
+#   Copyright 2017 Quan Yuan, Adaptive Networks and Control Lab,
+#   Research Center of Smart Networks and Systems,
+#   School of Information Science and Engineering,
+#   Fudan University.
+    
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+    
+        # http://www.apache.org/licenses/LICENSE-2.0
+    
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
+V2.0.0 2017.09.20 ----------------------------------------------------------
+--- General ---
+1) Bump to V2.0.0. 
+2) Unified docstring. Optimized coding style, functions and methods.
+3) Major bug fix and optimization.
+
+V1.3.1 2017.03.27 ----------------------------------------------------------
+--- SITL ---
+1) Removed defualt Xbee modules, and added support for both actual Xbee and 
+   simulated subscriber/publisher.
+   
+V1.3.0 2017.03.17 ----------------------------------------------------------
+--- General ---
+1) Bump to V1.3.0.
+  
+--- SITL ---
+1) Added simulated Xbee support. No need for real Xbee modules for SITL now.
+2) Added support for multi-agent simulation with QGC.
+
+V1.2.2 2017.03.01 ----------------------------------------------------------
+--- SITL ---
+1) Modified the sitl startup behavior and argparse.
+    
+V1.2.1 2016.10.13 ----------------------------------------------------------
+--- Onboard ---
+1) Added optimal Rc = 1.2 d0 for DMPC.
+    
+V1.2.0 2016.08.29 ----------------------------------------------------------
+--- General ---
+1) Bump to V1.2.0.
+    
+--- Onboard ---
+1) Added online parameter adjusting function. Use gcs to transmitt parameters
+   thru xbee. In the flocking algorithms, each loop will first check if there
+   is a new parameter pack.
+2) Added <ParamMPC> Class in comm.py to pack incoming MPC parameters.
+3) Added CURRENT_ALGORITHM attribute to detect which algorithm is on the run.
+
+--- GCS ---
+1) Added <update_parameters> and corresponding key binding to trigger it.
+2) Parameters are stored in a text file <PARAM.txt> in certain format.
+3) Argparser should be explicitly notified which Flocking algorithm is on the
+   run.
+
+V1.1.8 2016.08.23 ----------------------------------------------------------
+--- Onboard ---
+1) Added GNSS_TO_LOW flag for monitoring satellites_visible in case there is
+   an unexpected GNSS failure. If this flag is detected, hold current flocking.
+2) Added message listener for SYSTEM_TIME, logging timestamp after pre-flight.
+3) Added <PassiveLeader>.
+4) Modified argparser and threading instantiation method.
+
+V1.1.7 2016.08.22 ----------------------------------------------------------
+--- Onboard ---
+1) Added RC6 function, for controlling whether the leader move or stay.
+   
+V1.1.6 2016.08.14 ----------------------------------------------------------
+--- Onboard ---
+1) Modified Broadcast thread generation, if the current copter is an 
+   actural-leader in Vicsek model, the status broadcasting will start 
+   with identifier 'TAR'.
+
+V1.1.5 2016.08.10 ----------------------------------------------------------
+--- Onboard ---
+1) Slightly modified the timing of each threads, increasing response.
+2) Modified the <set_mode> logic and <arm_and_takeoff>'s altitude checking
+   logic.
+3) Modified flocking threads' termination condition, adding the case when 
+   the flight mode is switched out from 'GUIDED'.
+4) Modified <SquareRoute> behavior. Now the thread will first generate a set
+   of waypoints before commencing. Using hard-coded WPs will prevent  the 
+   drifting in relative position control.
+5) Added parameters WP_RADIUS and ALT_TOLERANCE for navigation accuracy.
+6) Added '-n' argument for the argparser, to get total agent counts.
+7) Added xbee_broadcast support for all MAS flocking threads.
+
+--- SITL ---
+1) It appears 20Hz is too much for SITL to follow. Sometimes the thread will
+   stuck and cannot get correct feedback. There was the case that set mode 
+   seemed 'failed' while acturally worked. Now the streaming request rate
+   is lowered to 16Hz in SITL.
+   
+--- GCS ---
+1) Removed unnecessary argparser to get a cleaner script.
+
+V1.1.4 2016.08.07 ----------------------------------------------------------
+--- GCS ---
+1) Greatly modified the keyboard input method. Now using sys.stdin.read(1)
+   to read one key tap input, without the need to Enter, which is much easier
+   when actually using the GCS. The function is blocking the while loop and 
+   the terminal console will be flushed if other threads such as xbee is 
+   prompting debugging info.
+   
+V1.1.3 2016.08.05 ----------------------------------------------------------
+--- Onboard ---
+Update:
+1) Added <SquareRoute> class and modified argparse parameters. The 
+   SquareRoute is used to render an agent, which is the leader, moving by 
+   itself while still using the flocking thread.
+2) Boosted Mavlink streaming rate to 20Hz using connect(XXX, rate=20) param.
+   The code is originated from pyMavlink API.
+3) Adapted to the boosted streaming rate, broadcasting rate is now 16Hz and
+   the flocking algorithms are at 10Hz.
+
+V1.1.2 2016.07.31 ----------------------------------------------------------
+--- Onboard ---
+1) Modified send_ned_velocity and send_global_velocity frequency to 10Hz
+
+--- Onboard ---
+Bug fix:
+1) Fixed the bug of <time.sleep> and <Ts> in the flocking algorithms in mas.py.
+   The nav.send_XXX_velocity will block the thread for <Ts> seconds, so there
+   is no need to sleep for another <Ts>. No the <time.sleep(0.001)> is a 
+   time-buffer to lower CPU load.
+
+V1.1.1 2016.07.27 ----------------------------------------------------------
+--- General ---
+1) Added more explicit notifications for both onboard and gcs.
+
+--- Onboard ---
+Updates:
+1) Rendezvous point is not automatically purged during flocking, a 'CLR_RDV'
+   command should be explicitly and manually sent from gcs to do that.
+
+V1.1.0 2016.07.05 ----------------------------------------------------------
+--- General ---
+1) Bump to V1.1.0.
+
+--- Onboard ---
+Updates:
+1) Implemented Zhan & Li's MPC flocking control algorithm (primitive).
+2) Added HOME_ORIGIN logic.
+  
+--- GCS ---
+Updates:
+1) Modified command list and added HOME_ORIGIN logic.
+    
+V1.0.5 2016.04.28 ----------------------------------------------------------
+------ General ------
+Updates:
+1) Modified logging behavior, now the logging function is automatic, and there 
+   is no need to manually identify log_id. There is a new folder <log> under 
+   the root folder, and the script will automatically log the current log ID 
+   in <latest.txt>, and increase the ID number by one at each execution.
+2) Added shared.status['exiting'] (Type BOOL) in the status dictionary,
+   monitoring internal exit conditions.
+
+--- Onboard ---
+Updates:
+1) Sligtly script exiting conditions and added commands for <LAND> and <RTL>.
+2) Added purging rendezvous point at the period of 15 seconds.
+
+--- GCS ---
+Updates:
+1) Sligtly modified gpsd behaviors and added commands for <LAND> and <RTL>.
+2) Xbee default port is ttyUSB1 now, and ttyUSB0 is reserved for gpsd to 
+   grab the GNSS module. (Using USB-UART bridge adapters)
+    
+V1.0.4 2016.04.23 ----------------------------------------------------------
+--- General ---
+Updates:
+1) Added a bash-shell file <gpsd_reset.sh> to reset gpsd service, ensuring
+   the /dev/ttyACM0 can be recognized properly.
+   
+--- Onboard ---
+Updates:
+1) Sligtly modified the argument parser behaviors
+    
+--- GCS ---
+Updates:
+1) Sligtly modified the argument parser behaviors
+
+Bug fix:
+1) Walked around the problem for using virtual USB COM port in gpsd.
+   Now the GNSS module that is recognized as an ACM device can be detected
+   in gpsd.
+   
+V1.0.3 2016.04.22 ----------------------------------------------------------  
+--- Onboard ---
+Updates:
+1) Sligtly modified the argument parser behaviors
+  
+--- GCS ---
+Updates:
+1) First release of a completed version of the GCS.
+2) Console terminal can be used to input commands, as well as
+   sending rendezvous coordinates.
+   
+V1.0.2 2016.04.19 ----------------------------------------------------------
+--- Onboard ---
+Updates:
+1) Use argument parser instead of hard while-polling to get parameters.
+   Parameters can also be passed in from a text file.
+2) Re-package <xbee_tx> into <xbee_broadcast>, omitting unnecessary
+   address inputs.
+
+V1.0.1 2016.04.18 ----------------------------------------------------------
+--- Onboard ---
+Updates:
+1) Pack the source code files into a python package under folder <src>
+2) Re-implemented the Xbee transmission functions. Now the data are sent in 
+   binary bytes, with the payload length constantly equals 39B.
+   struck.pack and struct.unpack are used.
+3) Added shared.status['airborne'] (BOOL) to identify if the copter is 
+   in the air. 
+4) Purge/Broadcast/Flocking threads are now only executed in the air.
+5) Added 'EXIT' support after pre-flight check, you can abort takeoff by sending 
+   'CTR,EXIT' at the <wait_lift_cmd> phase. The copter in the air will echo 
+   'Exiting...' thru Xbee, if it had received an 'CTR,EXIT' command.
+
+Bug fixes:
+1) Modified 'EXIT' logic, now the flocking thread can properly exit.
+2) Modified the Takeoff behavior, enhanced safety.
+
+V1.0 2016.04.17 ----------------------------------------------------------
+--- General ---
+1) Bump to V1.0.0.
+
+--- Onboard ---
+Updates:
+1) Implemented The first version of Vicsek flocking model. 
+2) Xbee datapacks are transmitted with ASCII bytes as string
+    

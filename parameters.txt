@@ -1,0 +1,2 @@
+ID=MPC,Ts=0.2,Vmax=3.5,D0=15.0,Hp=2,Hu=1
+ID=VSK,Ts=0.1,Vmax=3.0,R0=12.0,V0=2.0,Vf=1.0,Dp=1.0,Cf=18.0,Cs=5.0,Alpha=0.6,Beta=0.8,K_Rp=0.5,K_Rs1=0.8,K_Rs2=0.3,Tau=0.1,Del_t=0.1,Rw=100.0,Rt=1.0,Dw=5.0,Ds=2.0,Dt=1.0
