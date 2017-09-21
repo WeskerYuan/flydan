@@ -36,7 +36,7 @@ i. Hardware Requirement
     4. (Optional) A USB-TTL adapter (e.g. FT232, CP2102/CP2104, do not use PL2303)
     5. (Optional) A 3-pin twisted UART cable.
     
-    Connection (RaspberryPi 3B as the companion computer)£º
+    Connection (RaspberryPi 3B as the companion computer)Â£Âº
     1. XBee (base dock) -- (USB cable) ------------> RaspberryPi-USB (/dev/ttyUSB0)
     2. Pixhawk (Telem2) -- (3-pin twisted cable) --> RaspberryPi-UART (/dev/ttyACM0)
     3. Power-supply for the copter and RaspberryPi.
@@ -104,7 +104,7 @@ iii. Field test and script execution
         more details.
     8. Follow the takeoff sequence in the script. Set HOME_ORIGIN, send it, and 
         then takeoff in GUIDED mode after all the copters echo `standby`.
-    9. (CRITICAL!) Make sure to move your throttle stick to 50%£¡£¡£¡
+    9. (CRITICAL!) Make sure to move your throttle stick to 50%Â£Â¡Â£Â¡Â£Â¡
         When there's mode change or in emergency takeover, a 0% throttle has 
         a risk letting the copter free-fall! (Painful lesson!)
     9. (Optional) Broadcast the rendezvous coordinates if needed.
@@ -128,7 +128,7 @@ i. Hardware Requirement
         should be done. See Appendix II. for more details.
     3. An XBee module with a USB adapter. (e.g. XBee S1, XBee S2C, etc.)
 
-    Connection£º
+    ConnectionÂ£Âº
     XBee <-- (USB) --> Linux computer <-- (USB) --> GNSS module
     
     Configuration:
@@ -315,7 +315,7 @@ iv. Make the default_eeprom.bin of the SITL firmware
             Need to modify the file according to section III.iii.
             
             Make sure the warnings are out and you can try taking the copter off 
-            ground in MAVProxy¡£
+            ground in MAVProxyÂ¡Â£
             
         e.  After the parameters are loaded, use the search function in the 
             filesystem to search for "eeprom.bin" in <File System>/tmp.
@@ -404,7 +404,7 @@ Appendix I. Enable UART feature on the RaspberryPi.
         The file should look like this by default (or similar):
             dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait
          
-         What you need to do is add two script into the boot command£º
+         What you need to do is add two script into the boot commandÂ£Âº
             console=ttyAMA0,115200 kgdboc=ttyAMA0,115200
 
          When you're done, the file "cmdline.txt" should look like this:
