@@ -38,7 +38,7 @@ Flydan Project is made available under the permissive open source Apache 2.0 Lic
 #### Software-in-the-loop (SITL) simulation
 1. A Linux laptop. (Virtual machines are okay, but must be x86 compatible)
 2. The [Dronekit-SITL](http://python.dronekit.io/develop/sitl_setup.html) (Other native SITLs are also possible)
-3. ArduPilot source code and eeprom binaries for the Dronekit-SITL
+3. ArduPilot source code and EEPROM binaries for the Dronekit-SITL
 
 #### Packages
 1. Linux packages: python-pip python-dev python-serial python-gps gpsd gpsd-clients
