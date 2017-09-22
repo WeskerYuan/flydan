@@ -4,7 +4,6 @@
 # Each thread shall have its unique firmware(wiz its TCP ports) and each thread
 # could have its XBee module or use the ZeroMQ pub-sub model for communication.
 # need superuser clearance if using actual USB devices.
-cd /home/can/flydan
 python sitl.py -id 01 -alt 10 -c passive -pix fw/ac3.5.2_port5760  &
 python sitl.py -id 02 -alt 11 -pix fw/ac3.5.2_port6760  &
 python sitl.py -id 03 -alt 12 -pix fw/ac3.5.2_port7760  &

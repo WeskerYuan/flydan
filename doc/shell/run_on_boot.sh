@@ -8,7 +8,7 @@
 # Put this script under /etc/profile.d and it will auto-run on boot. 
 
 cd /home/can/flydan
-echo "can" | sudo -S python /home/can/flydan/onboard.py -id 01 -alt 25
+echo "can" | sudo -S python onboard.py -id 01 -alt 25
 # modify the directory and the password accordingly.
 # for each drone, modify the arguments at discretion.
 
