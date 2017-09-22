@@ -13,7 +13,7 @@ The "Flydan" platform aims at realizing a real-world **multi-agent system (MAS)*
 2017 Quan Yuan, Adaptive Networks and Control Lab ([CAN](www.can.fudan.edu.cn)),
 Research Center of Smart Networks and Systems (RCSNS),
 School of Information Science and Engineering,
-Fudan University ([FDU](www.fudan.edu.cn).
+Fudan University ([FDU](www.fudan.edu.cn)).
 
 #### License
 Flydan Project is made available under the permissive open source Apache 2.0 License.
