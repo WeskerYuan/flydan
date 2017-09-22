@@ -1,11 +1,11 @@
-## *Flydan* Project
-
+## Flydan Project
+---
 ### Introduction
-Welcome to the *Flydan* project! *Flydan* is a multi-copter drone test platform originally designed by [Quan Yuan](https://github.com/WeskerYuan/) from the Adaptive Networks and Control Lab ([CAN Lab](www.can.fudan.edu.cn)), Fudan University.
+Welcome to the Flydan project! "Flydan" is a multi-copter drone test platform originally designed by [Quan Yuan](https://github.com/WeskerYuan/) from the Adaptive Networks and Control Lab ([CAN Lab](www.can.fudan.edu.cn)), Fudan University.
 
-The *Flydan* drones take the [Pixhawk](pixhawk.org) and the [ArduPilot](www.ardupilot.org) stack as their low-level flight  controller and use [dronekit-python](python.dronekit.io) as the high-level application control. So far there is no modification at the Pixhawk and the ArduPilot level, so this project is purely written in Python running on a Linux companion computer (e.g. Raspberry Pi).
+The "Flydan" drones take the [Pixhawk](pixhawk.org) and the [ArduPilot](www.ardupilot.org) stack as their low-level flight  controller and use [dronekit-python](python.dronekit.io) as the high-level application control. So far there is no modification at the Pixhawk and the ArduPilot level, so this project is purely written in Python running on a Linux companion computer (e.g. Raspberry Pi).
 
-The *Flydan* platform aims at realizing a real-world *multi-agent system (MAS)* by implementing and testing the MAS algorithms on the platform (e.g. flocking/formation control/...). The *Flydan* drones use [XBee](https://www.digi.com/products/xbee-rf-solutions/2-4-ghz-modules) modules to establish a high-level communication network between the drones and the ground control station. We have successfuly tested some flocking algorithm in outdoor environment and realized our own [Decentralized Model Predictive Control](https://doi.org/10.1016/j.isatra.2017.07.005) flocking. 
+The "Flydan" platform aims at realizing a real-world **multi-agent system (MAS)** by implementing and testing the MAS algorithms on the platform (e.g. flocking/formation control/...). The "Flydan" drones use [XBee](https://www.digi.com/products/xbee-rf-solutions/2-4-ghz-modules) modules to establish a high-level communication network between the drones and the ground control station. We have successfuly tested some flocking algorithm in outdoor environment and realized our own [Decentralized Model Predictive Control](https://doi.org/10.1016/j.isatra.2017.07.005) flocking. 
 
 #### Reference
 1. Quan Yuan, Jingyuan Zhan and Xiang Li, Outdoor flocking of quadcopter drones with decentralized model predictive control, ISA Transactions, 2017, http://dx.doi.org/10.1016/j.isatra.2017.07.005.
@@ -18,13 +18,13 @@ Fudan University ([FDU](www.fudan.edu.cn).
 
 #### License
 Flydan Project is made available under the permissive open source Apache 2.0 License.
-
+---
 ### System requirement
 #### Drone
 1. A multi-copter drone using Pixhawk as its flight controller.
 2. A mini onboard Linux companion computer. (e.g. Raspberry Pi)
 3. An XBee module with a USB adapter. (e.g. XBee S1, XBee S2C, etc.) 
-    *Note:* Zigbee's are not recommended as they are relatively slow and have small data throughput volume. Zigbee modules tend to get stuck often. The XBee Pro S1 with DIJI Mesh firmware is tested to be working very well. A new hardware upgrade by DIJI unifies XBee and Zigbee to "S2C" version, which are now compatible across all the DIJI product lines.
+    *Note: Zigbee's are not recommended as they are relatively slow and have small data throughput volume. Zigbee modules tend to get stuck often. The XBee Pro S1 with DIJI Mesh firmware is tested to be working very well. A new hardware upgrade by DIJI unifies XBee and Zigbee to "S2C" version, which are now compatible across all the DIJI product lines.*
 4. (Optional) A USB-TTL adapter for debugging (e.g. FT232, CP2102/CP2104, do not use PL2303)
 
 #### Ground control station
@@ -40,7 +40,7 @@ Flydan Project is made available under the permissive open source Apache 2.0 Lic
 #### Packages
 1. Linux packages: python-pip python-dev python-serial python-gps gpsd gpsd-clients
 2. Python packages: dronekit dronekit-sitl xbee numpy pyzmq
-
+---
 ### How to use
 #### Field test and script execution
 Assume one has already configured the onboard companion computer to auto-login on boot, and auto-run the `onboard.py` script with certain arguments. A basic running script command may look like this:
@@ -58,7 +58,7 @@ For a safe fiedtest, one shall follow these steps:
 5. Connect power cable to the RPi and the script will auto-run on boot.
 6. Turn on the laptop, plug in the GNSS modules and XBee and run `gcs.py`. Some specific steps are necessary for a correct recognition of the GNSS module, see the GCS section of this file for more details.
 7. Follow the takeoff sequence in the script. Set HOME_ORIGIN, send it, and then takeoff in GUIDED mode after all the copters echo "standby".
-8. (__*CRITICAL!*__) Make sure to move the throttle stick to 50%!
+8. (__CRITICAL!__) Make sure to move the throttle stick to 50%!
     When there's mode change or in emergency takeover, a 0% throttle has the risk of letting the copter free-fall!
 9. (Optional) Broadcast the rendezvous coordinates if needed.
 10. Send `LAND` command or `RTL` command through the GCS to call the birds back.
@@ -88,10 +88,10 @@ The `fw` folder contains some pre-compiled firmwares and the `default_eeprom.bin
 2. Open another terminal, execute the `gcs-sitl.py` by `python gcs-sitl.py -a MPC`.
 3. Open the third terminal, execute QGroundControl and connect the localhost TCP ports `5762/6762/7762/8762/9762`.
 
-The SITL simulation in this project uses ZeroMQ to establish a publisher-subscriber model and simulates the XBee network. Alternatively, one can plug in real XBee modules and specify the USB ports.
-
+The SITL simulation in this project uses [ZeroMQ](zeromq.org/) to establish a publisher-subscriber model and simulates the XBee network. Alternatively, one can plug in real XBee modules and specify the USB ports.
+---
 ### Compile the ArduPilot firmware and prepare the EEPROM
-For sitl simulation with multiple drones, the firmware should be compiled with different TCP ports. Also, the parameters of the ArduPilot firmware should be edited to pass the pre-flight checks.
+For SITL simulation with multiple drones, the firmware should be compiled with different TCP ports. Also, the parameters of the ArduPilot firmware should be edited to pass the pre-flight checks.
 
 #### Building the firmware
 1. Install git and clone the repository.
@@ -103,7 +103,7 @@ For sitl simulation with multiple drones, the firmware should be compiled with d
 ```shell
 >> git checkout Copter-3.5.2
 ```
-3. (__*CRITICAL!*__) Modify the TCP ports accordingly. Once built/compiled, the TCP ports for SITLare hard-coded in the firmware. Each simulated copter has its own firmware binary, coded with its assigned TCP ports.
+3. (__CRITICAL!__) Modify the TCP ports accordingly. Once built/compiled, the TCP ports for SITLare hard-coded in the firmware. Each simulated copter has its own firmware binary, coded with its assigned TCP ports.
 a. Open the file `ardupilot/libraries/AP_HAL_SITL/SITL_cmdline.cpp` and locate:
 ```c++
 const int BASE_PORT = 5760;
@@ -116,7 +116,7 @@ const int SIM_OUT_PORT = 9002;
 const int IRLOCK_PORT = 9005;
 ```
 b. Mmodify these ports if necessary without overlapping.
-4. (__*CRITICAL!*__) Modify MAVlink system ID
+4. (__CRITICAL!__) Modify MAVlink system ID
 a. Open the file `ardupilot/ArduCopter/config.h` and locate:
 ```c++
 #ifndef MAV_SYSTEM_ID
@@ -145,7 +145,7 @@ Before loding the parameters, manually edit the parameter file and make sure the
 `INS_ACCOFFS_X   0.078671` <== equal in value ==> `INS_ACC2OFFS_X   0.078671`
 For all the connected accelerometers and compasses and all their axes, do the same.
 
-(__*CRITICAL!*__) For making the `default_eeprom.bin` for SITL (as will be described next) with multiple copters, delete `SYSID_THISMAV` to prevent from it affecting other drones (use the `SYSID_THISMAV` value built inside the firmwares) as all the firmwares under the same folder share one `default_eeprom.bin`, as is hard-coded in `dronekit-sitl`. Also, disable the battery and current sensor to prevent battery warning in the SITL.
+(__CRITICAL!__) For making the `default_eeprom.bin` for SITL (as will be described next) with multiple copters, delete `SYSID_THISMAV` to prevent from it affecting other drones (use the `SYSID_THISMAV` value built inside the firmwares) as all the firmwares under the same folder share one `default_eeprom.bin`, as is hard-coded in `dronekit-sitl`. Also, disable the battery and current sensor to prevent battery warning in the SITL.
 
 Dronekit-SITL will load `default_eeprom.bin` each time it's launched. Changes made between simulations are discarded. Natually, one may want to preserve the parameters in the EEPROM. In the ArduPilot SITL, this is done through MAVProxy, and the parameters are 
 saved in the simulated `eeprom.bin`, located in the temp directory `<FILESYSTEM>/tmp/`. Dronekit-SITL is also compatible with this method.
