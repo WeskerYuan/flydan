@@ -56,7 +56,7 @@ For a safe fiedtest, one shall follow these steps:
 0. Find a clear test field, clear away unnecessary personnel.
 1. Turn on the RC transmitter.
 2. Connect battery to the copter, wait for the Pixhawk to perform pre-flight check.
-3. Wait until satellites number fit the requirement, preferably over 10 satellites or HDOP <= 1.4
+3. Wait until satellites number fit the requirement, preferably over 10 satellites or HDOP <= 1.4 .
 4. (Optional) One may try to arm the copter in Loiter mode. If it is possible to arm, than the GNSS signal is good enough.
 5. Connect power cable to the RPi and the script will auto-run on boot.
 6. Turn on the laptop, plug in the GNSS modules and XBee and run `gcs.py`. Some specific steps are necessary for a correct recognition of the GNSS module, see the GCS section of this file for more details.
