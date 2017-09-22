@@ -111,7 +111,7 @@ For SITL simulation with multiple drones, the firmware should be compiled with d
 ```
 3. (__CRITICAL!__) Modify the TCP ports accordingly. Once built/compiled, the TCP ports for SITLare hard-coded in the firmware. Each simulated copter has its own firmware binary, coded with its assigned TCP ports.
 
-a. Open the file `ardupilot/libraries/AP_HAL_SITL/SITL_cmdline.cpp` and locate:
+1. Open the file `ardupilot/libraries/AP_HAL_SITL/SITL_cmdline.cpp` and locate:
 ```c++
 const int BASE_PORT = 5760;
 const int RCIN_PORT = 5501;
@@ -122,17 +122,17 @@ const int SIM_IN_PORT = 9003;
 const int SIM_OUT_PORT = 9002;
 const int IRLOCK_PORT = 9005;
 ```
-b. Mmodify these ports if necessary without overlapping.
+2. Mmodify these ports if necessary without overlapping.
 
 4. (__CRITICAL!__) Modify MAVlink system ID
 
-a. Open the file `ardupilot/ArduCopter/config.h` and locate:
+1. Open the file `ardupilot/ArduCopter/config.h` and locate:
 ```c++
 #ifndef MAV_SYSTEM_ID
    # define MAV_SYSTEM_ID          1
 #endif 
 ```
-b. Modify the macro for different firmware compilation. This macro `MAV_SYSTEM_ID` is copied into parameter `SYSID_THISMAV` in the firmware as the default value. Make sure each built firmware has a unique system ID so that the GCS can recognize them as different vehicles.
+2. Modify the macro for different firmware compilation. This macro `MAV_SYSTEM_ID` is copied into parameter `SYSID_THISMAV` in the firmware as the default value. Make sure each built firmware has a unique system ID so that the GCS can recognize them as different vehicles.
 
 5. Configure for WAF building.
 ```shell
