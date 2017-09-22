@@ -72,9 +72,7 @@ For a safe field test, one shall find a clear test field, clear away unnecessary
 The program uses `gpsd` for monitoring the GNSS data at background, and we found out some compatibility issue with the gpsd when plugging in new devices. Follow these steps to test if it runs correctly.
 1. Turn on the computer
 2. Connect the linux computer with the Xbee and GNSS module. Connect the GNSS module first because gpsd will grab it automatically. Connect the XBee module afterwards. Double check the USB ports use `lsusb` if needed.
-3. (Optional) Reset gpsd service:
-    First use `cgps` to see if the GNSS data are correctly fed. If not `sudo sh doc/shell/gpsd_reset.sh`
-    After reset, use `cgps` to check if the data flow is correct.
+3. (Optional) Reset gpsd service: (1) First use `cgps` to see if the GNSS data are correctly fed. If not, `sudo sh doc/shell/gpsd_reset.sh` (2) After reset, use `cgps` to check if the data flow is correct.
 4. Run the `gcs.py` script by `sudo python gcs.py -a MPC`. Use `--help` or refer to the source code docstrings for detailed script arguments.
 5. The console will start prompting some information. Input keys accordingly to execute certain operations.
     Keylist:
