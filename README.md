@@ -4,7 +4,7 @@ Welcome to the Flydan project! "Flydan" is a multi-copter drone test platform or
 
 The "Flydan" drones take the [Pixhawk](pixhawk.org) and the [ArduPilot](www.ardupilot.org) stack as their low-level flight  controller and use [dronekit-python](python.dronekit.io) as the high-level application control. So far there is no modification at the Pixhawk and the ArduPilot level, so this project is purely written in Python running on a Linux companion computer (e.g. Raspberry Pi).
 
-The "Flydan" platform aims at realizing a real-world **multi-agent system (MAS)** by implementing and testing the MAS algorithms on the platform (e.g. flocking/formation control/...). The "Flydan" drones use [XBee](https://www.digi.com/products/xbee-rf-solutions/2-4-ghz-modules) modules to establish a high-level communication network between the drones and the ground control station. We have successfuly tested some flocking algorithm in outdoor environment and realized our own [Decentralized Model Predictive Control](https://doi.org/10.1016/j.isatra.2017.07.005) flocking. 
+The "Flydan" platform aims at realizing a real-world **multi-agent system (MAS)** by implementing and testing the MAS algorithms on the platform (e.g. flocking/formation control/...). The "Flydan" drones use [XBee](https://www.digi.com/products/xbee-rf-solutions/2-4-ghz-modules) modules to establish a high-level communication network between the drones and the ground control station. We have successfuly tested some flocking algorithms in outdoor environment and realized our own [Decentralized Model Predictive Control](https://doi.org/10.1016/j.isatra.2017.07.005) flocking. 
 
 #### Reference
 1. Quan Yuan, Jingyuan Zhan and Xiang Li, Outdoor flocking of quadcopter drones with decentralized model predictive control, ISA Transactions, 2017, http://dx.doi.org/10.1016/j.isatra.2017.07.005.
@@ -24,17 +24,19 @@ Flydan Project is made available under the permissive open source Apache 2.0 Lic
 #### Drone
 1. A multi-copter drone using Pixhawk as its flight controller.
 2. A mini onboard Linux companion computer. (e.g. Raspberry Pi)
-3. An XBee module with a USB adapter. (e.g. XBee S1, XBee S2C, etc.) 
-    *Note: Zigbee's are not recommended as they are relatively slow and have small data throughput volume. Zigbee modules tend to get stuck often. The XBee Pro S1 with DIJI Mesh firmware is tested to be working very well. A new hardware upgrade by DIJI unifies XBee and Zigbee to "S2C" version, which are now compatible across all the DIJI product lines.*
+3. An XBee module with a USB adapter. (e.g. XBee S1, XBee S2C, etc.)
+
+    __Note:__ Zigbee's are not recommended as they are relatively slow and have small data throughput volume. Zigbee modules tend to get stuck often. The XBee Pro S1 with DIJI Mesh firmware is tested to be working very well. A new hardware upgrade by DIJI unifies XBee and Zigbee to "S2C" version, which are now compatible across all the DIJI product lines.
+
 4. (Optional) A USB-TTL adapter for debugging (e.g. FT232, CP2102/CP2104, do not use PL2303)
 
 #### Ground control station
-1. A linux laptop. (Virtual machines are okay)
+1. A Linux laptop. (Virtual machines are okay)
 2. A GNSS module (e.g. u-blox M8N).
 3. An XBee module with a USB adapter. (e.g. XBee S1, XBee S2C, etc.)
 
 #### Software-in-the-loop (SITL) simulation
-1. A linux laptop. (Virtual machine is okay, but must be x86 compatible)
+1. A Linux laptop. (Virtual machines are okay, but must be x86 compatible)
 2. The [Dronekit-SITL](http://python.dronekit.io/develop/sitl_setup.html) (Other native SITLs are also possible)
 3. ArduPilot source code and eeprom binaries for the Dronekit-SITL
 
@@ -52,8 +54,7 @@ python onboard.py -id 01 -alt 25 -a MPC -xbee /dev/ttyUSB0 -pix /dev/ttyAMA0
 ```
 Note some of the arguments have their default values and can be omitted. Use `--help` or refer to the source code docstrings for detailed script arguments.
     
-For a safe fiedtest, one shall follow these steps:
-0. Find a clear test field, clear away unnecessary personnel.
+For a safe field test, one shall find a clear test field, clear away unnecessary personnel and follow these steps:
 1. Turn on the RC transmitter.
 2. Connect battery to the copter, wait for the Pixhawk to perform pre-flight check.
 3. Wait until satellites number fit the requirement, preferably over 10 satellites or HDOP <= 1.4 .
@@ -109,6 +110,7 @@ For SITL simulation with multiple drones, the firmware should be compiled with d
 >> git checkout Copter-3.5.2
 ```
 3. (__CRITICAL!__) Modify the TCP ports accordingly. Once built/compiled, the TCP ports for SITLare hard-coded in the firmware. Each simulated copter has its own firmware binary, coded with its assigned TCP ports.
+
 a. Open the file `ardupilot/libraries/AP_HAL_SITL/SITL_cmdline.cpp` and locate:
 ```c++
 const int BASE_PORT = 5760;
@@ -121,7 +123,9 @@ const int SIM_OUT_PORT = 9002;
 const int IRLOCK_PORT = 9005;
 ```
 b. Mmodify these ports if necessary without overlapping.
+
 4. (__CRITICAL!__) Modify MAVlink system ID
+
 a. Open the file `ardupilot/ArduCopter/config.h` and locate:
 ```c++
 #ifndef MAV_SYSTEM_ID
@@ -129,6 +133,7 @@ a. Open the file `ardupilot/ArduCopter/config.h` and locate:
 #endif 
 ```
 b. Modify the macro for different firmware compilation. This macro `MAV_SYSTEM_ID` is copied into parameter `SYSID_THISMAV` in the firmware as the default value. Make sure each built firmware has a unique system ID so that the GCS can recognize them as different vehicles.
+
 5. Configure for WAF building.
 ```shell
 >> cd ardupilot
@@ -164,11 +169,11 @@ saved in the simulated `eeprom.bin`, located in the temp directory `<FILESYSTEM>
 ```shell
 >> mavproxy.py --master tcp:127.0.0.1:5760 --sitl 127.0.0.1:5501 --out 127.0.0.1:14550 --out 127.0.0.1:14551
 ```
-If there is no `default_eeprom.bin` when running the dronekit-sitl, there should be some PreArm warnings like "RC not calibrated" "ACC not calibrated". This is the correct behavior, since there's no EEPROM and the parameters are all "clean".
+    If there is no `default_eeprom.bin` when running the dronekit-sitl, there should be some PreArm warnings like "RC not calibrated" "ACC not calibrated". This is the correct behavior, since there's no EEPROM and the parameters are all "clean".
         
 4. Load the parameters from a file and overwrite the `eeprom.bin` use `param load <FILE_PATH>/<NAME>.parm` and the warnings should be cleared.
 5. After the parameters are loaded, search in the filesystem `eeprom.bin` in `<File System>/tmp/`. Find the latest accessed `eeprom.bin` and copy it to the folder that holds the compiled firmwares, and rename it to `default_eeprom.bin` (this name is hard-coded in dronekit-sitl).
 6. Kill all MAVProxy and dronekit-sitl, reboot the system and repeat steps 2 and 3. There should not be any PreArm warnings before takeoff. Try showing some of the parameters and check if they are consistent with the parameter list by `>> param show <PARAM_NAME>`.
     
-Note: For multi copter situations with all the compiled firmwares in the same folder, they share the same `default_eeprom.bin`. If one need to prepare different parameters for different drones, isolate them in different folders.
+__Note:__ For multi copter situations with all the compiled firmwares in the same folder, they share the same `default_eeprom.bin`. If one need to prepare different parameters for different drones, isolate them in different folders.
 
