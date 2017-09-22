@@ -86,11 +86,14 @@ The program uses `gpsd` for monitoring the GNSS data at background, and we found
 
 #### SITL simulation
 The `fw` folder contains some pre-compiled firmwares and the `default_eeprom.bin` for a flocking test simulation with five drones. Execute the multi-drone simulation test by:
-1. `sh doc/shell/sitl_multirun.sh`.
-2. Open another terminal, execute the `gcs-sitl.py` by `python gcs-sitl.py -a MPC`.
-3. Open the third terminal, execute QGroundControl and connect the localhost TCP ports `5762/6762/7762/8762/9762`.
+1. Extract the firmwares by `>> tar -xf fw.tar.gz`
+2. `sh doc/shell/sitl_multirun.sh`.
+3. Open another terminal, execute the `gcs-sitl.py` by `python gcs-sitl.py -a MPC`.
+4. Open the third terminal, execute QGroundControl and connect the localhost TCP ports `5762/6762/7762/8762/9762`.
 
 The SITL simulation in this project uses [ZeroMQ](zeromq.org/) to establish a publisher-subscriber model and simulates the XBee network. Alternatively, one can plug in real XBee modules and specify the USB ports.
+
+__Note:__ The dronekit-sitl will throw a `OSError: [Errno 13] Permission denied` exception if the binaries is directly pulled from github. Same will occur if using zip files. The firmware is packed into an `.tar` file.
 
 ---
 
