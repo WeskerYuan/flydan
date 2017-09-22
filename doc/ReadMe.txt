@@ -25,13 +25,13 @@
 I. Run the onboard script on an multi-copter drone. ===========================
 i. Hardware Requirement 
     Components:
-    1. A multi-copter using Pixhawk as its flight controller.
-    2. A mini linux companion computer. (e.g. Raspberry Pi)
+    1. A multi-copter drone using Pixhawk as its flight controller.
+    2. A mini Linux companion computer. (e.g. Raspberry Pi)
     3. An XBee module with a USB adapter. (e.g. XBee S1, XBee S2C, etc.)
         Note: Zigbee's are not recommended as they are relatively slow and have
             small data throughput volume. Zigbee modules tend to get stuck often.
             The XBee Pro S1 with DIJI Mesh firmware is tested to be working very
-            well. A new hardware upgrade by DIJI unifies XBee and Zigbee to `S2C`
+            well. A new hardware upgrade by DIJI unifies XBee and Zigbee to "S2C"
             version, which are now compatible across all the DIJI product lines.
     4. (Optional) A USB-TTL adapter (e.g. FT232, CP2102/CP2104, do not use PL2303)
     5. (Optional) A 3-pin twisted UART cable.
@@ -93,27 +93,27 @@ iii. Field test and script execution
     2. Connect battery to the copter, wait for the Pixhawk to perform pre-flight check.
     3. Wait until satellites number fit the requirement, preferably over 10
         satellites or HDOP <= 1.4
-    4. (Optional) You may try to arm the copter in Loiter mode. If it is possible 
+    4. (Optional) One may try to arm the copter in Loiter mode. If it is possible 
         to arm, than the GNSS signal is good enough.
     5. Connect power cable to the RPi and the script will auto-run on boot.
 
 
-    7. Turn on the laptop, plug in the GNSS modules and XBee and run the GCS 
+    6. Turn on the laptop, plug in the GNSS modules and XBee and run the GCS 
         program. Some specific steps are necessary for a correct recognition of 
         the GNSS module (due to the gpsd), see the GCS section of this file for 
         more details.
-    8. Follow the takeoff sequence in the script. Set HOME_ORIGIN, send it, and 
-        then takeoff in GUIDED mode after all the copters echo `standby`.
-    9. (CRITICAL!) Make sure to move your throttle stick to 50%£¡£¡£¡
+    7. Follow the takeoff sequence in the script. Set HOME_ORIGIN, send it, and 
+        then takeoff in GUIDED mode after all the copters echo "standby".
+    8. (CRITICAL!) Make sure to move your throttle stick to 50%
         When there's mode change or in emergency takeover, a 0% throttle has 
         a risk letting the copter free-fall! (Painful lesson!)
     9. (Optional) Broadcast the rendezvous coordinates if needed.
-    10. Send `Land` command or `RTL` command through the GCS to call the birds 
+    10. Send `LAND` command or `RTL` command through the GCS to call the birds 
         back.
-        Alternatively, you can us the RC transmitter switch to manually override 
+        Alternatively, one may us the RC transmitter switch to manually override 
         the flight mode to RTL, the script will detect the external signal and 
         respond to it by killing the high-level control thread. As mentioned in 
-        step 9, make sure the throttle stick is around 50%!
+        step 8, make sure the throttle stick is around 50%!
     
     NOTE: For extra safety, assign different flight level of each drone to prevent
         mid-air collision!
@@ -123,7 +123,7 @@ i. Hardware Requirement
     Components:
     1. A linux laptop. (virtual machine is okay)
     2. A GNSS module. If the GNSS module is identified as an ACM device 
-        (e.g./dev/ttyACM0), you will need to do a walkaround method. If it is 
+        (e.g./dev/ttyACM0), one will need to do a walkaround method. If it is 
         identified as a standard USB device, like /dev/ttyUSB0, then nothing
         should be done. See Appendix II. for more details.
     3. An XBee module with a USB adapter. (e.g. XBee S1, XBee S2C, etc.)
@@ -157,7 +157,7 @@ iii. Script Execution
             >> ls /dev/ttyACM0   # if identified as ACM devices
         
     3. (Optional) Reset gpsd service:
-        First use `>> cgps` to see if the GNSS data are correctly fed. If not:
+        First use `cgps` to see if the GNSS data are correctly fed. If not:
             >> sudo sh gpsd_reset.sh
         After reset, use cgps to check if the data flow is correct.
             >> cgps
@@ -168,7 +168,15 @@ iii. Script Execution
 
     5. The console will start prompting some information. 
         Type accordingly to execute certain operations.
-
+        Keylist:
+        * 's': set current location as HOME_ORIGIN.
+        * 'o': broadcast HOME_ORIGIN to all the drones in the same network.
+        * 'e': exit command, cancel takeoff.
+        * 'b'/'l'/'r': takeoff/land/return-to-launch command.
+        * 't': send current location as the rendezvous point to all drones.
+        * 'p': update algorithm parameter to the drones.
+        * ENTER: show the keylist.
+    
 III. Run the SITL simulation script on a computer. ============================
 i. Requirement 
     1. A linux laptop. (virtual machine is okay, but must be x86 compatible)
@@ -187,7 +195,7 @@ ii. Build ArduCopter firmware
     
     2. Checkout to the desired branch (e.g. Copter-3.5.2)
         >> git checkout Copter-3.5.2
-        (You can list the tags by "git tag")
+        (List the tags by "git tag")
 
     3. (CRITICAL) Modify the TCP ports accordingly.
         Once built/compiled, the TCP ports for SITLare hard-coded in the firmware.
@@ -224,7 +232,7 @@ ii. Build ArduCopter firmware
         firmware as the default value. Make sure each built firmware a unique 
         system ID so that the GCS can recognize them as different vehicles.
          
-    4. Configure for WAF building (ArduPilot is now using WAF instead of make)
+    5. Configure for WAF building (ArduPilot is now using WAF instead of make)
         >> cd <Parent Folder>/ardupilot/
         >> ./waf clean
         >> ./waf distclean
@@ -234,7 +242,7 @@ ii. Build ArduCopter firmware
             OR
         >> ./waf copter (this will build all targets under copter)
 
-    5. After the build completed, locate the firmware binaries in
+    6. After the build completed, locate the firmware binaries in
         <Parent Folder>/ardupilot/build/sitl/bin/
         Copy the compiled firmware to the folder containing firmwares
         and rename the file with suffix "portABCD" where "ABCD" is the four 
@@ -315,7 +323,7 @@ iv. Make the default_eeprom.bin of the SITL firmware
             Need to modify the file according to section III.iii.
             
             Make sure the warnings are out and you can try taking the copter off 
-            ground in MAVProxy¡£
+            ground in MAVProxy.
             
         e.  After the parameters are loaded, use the search function in the 
             filesystem to search for "eeprom.bin" in <File System>/tmp.
@@ -391,7 +399,7 @@ Appendix I. Enable UART feature on the RaspberryPi.
         reboot and the UART will be available.
         
         To use the UART as communication interface, 
-            delete"console=ttyAMA0,115200 kgdboc=ttyAMA0,115200" in `boot/cmdline.txt`
+            delete`console=ttyAMA0,115200 kgdboc=ttyAMA0,115200` in `boot/cmdline.txt`
             
         To boost the UART baudrate and clock, modify /boot/config.txt
         change init_uart_clock to 16MHz, and init_uart_baudrate to 921600
