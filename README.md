@@ -166,7 +166,7 @@ saved in the simulated `eeprom.bin`, located in the temp directory `<FILESYSTEM>
 ```
 If there is no `default_eeprom.bin` when running the dronekit-sitl, there should be some PreArm warnings like "RC not calibrated" "ACC not calibrated". This is the correct behavior, since there's no EEPROM and the parameters are all "clean".
         
-4. Load the parameters from a file and overwrite the `eeprom.bin` use `>> param load <FILE_PATH>/<NAME>.parm` and the warnings should be cleared.
+4. Load the parameters from a file and overwrite the `eeprom.bin` use `param load <FILE_PATH>/<NAME>.parm` and the warnings should be cleared.
 5. After the parameters are loaded, search in the filesystem `eeprom.bin` in `<File System>/tmp/`. Find the latest accessed `eeprom.bin` and copy it to the folder that holds the compiled firmwares, and rename it to `default_eeprom.bin` (this name is hard-coded in dronekit-sitl).
 6. Kill all MAVProxy and dronekit-sitl, reboot the system and repeat steps 2 and 3. There should not be any PreArm warnings before takeoff. Try showing some of the parameters and check if they are consistent with the parameter list by `>> param show <PARAM_NAME>`.
     
