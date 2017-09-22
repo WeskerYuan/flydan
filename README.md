@@ -1,5 +1,4 @@
 ## Flydan Project
----
 ### Introduction
 Welcome to the Flydan project! "Flydan" is a multi-copter drone test platform originally designed by [Quan Yuan](https://github.com/WeskerYuan/) from the Adaptive Networks and Control Lab ([CAN Lab](www.can.fudan.edu.cn)), Fudan University.
 
@@ -18,7 +17,9 @@ Fudan University ([FDU](www.fudan.edu.cn).
 
 #### License
 Flydan Project is made available under the permissive open source Apache 2.0 License.
+
 ---
+
 ### System requirement
 #### Drone
 1. A multi-copter drone using Pixhawk as its flight controller.
@@ -40,7 +41,9 @@ Flydan Project is made available under the permissive open source Apache 2.0 Lic
 #### Packages
 1. Linux packages: python-pip python-dev python-serial python-gps gpsd gpsd-clients
 2. Python packages: dronekit dronekit-sitl xbee numpy pyzmq
+
 ---
+
 ### How to use
 #### Field test and script execution
 Assume one has already configured the onboard companion computer to auto-login on boot, and auto-run the `onboard.py` script with certain arguments. A basic running script command may look like this:
@@ -89,7 +92,9 @@ The `fw` folder contains some pre-compiled firmwares and the `default_eeprom.bin
 3. Open the third terminal, execute QGroundControl and connect the localhost TCP ports `5762/6762/7762/8762/9762`.
 
 The SITL simulation in this project uses [ZeroMQ](zeromq.org/) to establish a publisher-subscriber model and simulates the XBee network. Alternatively, one can plug in real XBee modules and specify the USB ports.
+
 ---
+
 ### Compile the ArduPilot firmware and prepare the EEPROM
 For SITL simulation with multiple drones, the firmware should be compiled with different TCP ports. Also, the parameters of the ArduPilot firmware should be edited to pass the pre-flight checks.
 
