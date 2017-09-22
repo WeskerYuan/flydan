@@ -92,7 +92,7 @@ The `fw` folder contains some pre-compiled firmwares and the `default_eeprom.bin
 
 The SITL simulation in this project uses [ZeroMQ](zeromq.org/) to establish a publisher-subscriber model and simulates the XBee network. Alternatively, one can plug in real XBee modules and specify the USB ports.
 
-__Note:__ The dronekit-sitl will throw a `OSError: [Errno 13] Permission denied` exception if the binaries is uploaded in Windows and pulled from github in Linux. Same will occur if using zip files.
+__Note:__ The dronekit-sitl will throw an `OSError: [Errno 13] Permission denied` exception if the binaries are uploaded in Windows and pulled from github in Linux. Same will occur if using zip files.
 
 ---
 
