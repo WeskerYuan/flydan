@@ -235,7 +235,7 @@ def _wait_lift_cmd(xbee):
             
         elif wait_count >= 100:
             wait_count = 0
-            comm.xbee_broadcast(xbee,"IFO,%s standby." % shared.AGENT_ID)
+            comm.xbee_broadcast(xbee,"IFO,%s standby. Alt: %f m." % (shared.AGENT_ID, shared.des_alt))
             
 
 def set_mode(vehicle, mode):
