@@ -155,9 +155,8 @@ For SITL simulation with multiple drones, the firmware should be compiled with d
 During SITL, one may want to load the parameters from an actual copter, or modify certain "default" ones.
 Because the SITL uses simulated vehicles, not actual boards, the parameters saved from an actual quadcopter in the Mission Planner will report "inconsistent accelerometers and magnetometers" in the SITL since the offsets and scaling factors compensate the real-world errors while there are no errors in the SITL. A real-world calibration is viewed as "imperfect" in the SITL. 
 
-Before loding the parameters, manually edit the parameter file and make sure the 'compass' and 'accelerometers' are consistent, i.e.:
-`INS_ACCOFFS_X   0.078671` <== equal in value ==> `INS_ACC2OFFS_X   0.078671`
-For all the connected accelerometers and compasses and all their axes, do the same.
+Before loding the parameters, manually edit the parameter file and make sure the "compass" and "accelerometers" are consistent, i.e.:
+`INS_ACCOFFS_X   0.078671` <== equal in value ==> `INS_ACC2OFFS_X   0.078671`. For all the connected accelerometers and compasses and all their axes, do the same.
 
 (__CRITICAL!__) For making the `default_eeprom.bin` for SITL (as will be described next) with multiple copters, delete `SYSID_THISMAV` to prevent from it affecting other drones (use the `SYSID_THISMAV` value built inside the firmwares) as all the firmwares under the same folder share one `default_eeprom.bin`, as is hard-coded in `dronekit-sitl`. Also, disable the battery and current sensor to prevent battery warning in the SITL.
 
