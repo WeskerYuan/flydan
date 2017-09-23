@@ -30,12 +30,13 @@ Flydan Project is made available under the permissive open source Apache 2.0 Lic
 
 4. (Optional) A USB-TTL adapter for debugging (e.g. FT232, CP2102/CP2104, do not use PL2303)
 
-__Connection example:__ The XBee modules is connected to the RPi via USB, and the Rpi is conected to the Pixhawk via UART cable. Configure the hardware UART on the Rpi to run at 921600bps baudrate, consistent with the setup on Pixhawk's serials. See [Companion Computers](http://ardupilot.org/dev/docs/companion-computers.html) page in the ArduPilot dev wiki.
+__Connection example:__ The XBee modules is connected to the RPi via USB, and the Rpi is conected to the Pixhawk via UART. Configure the hardware UART on the Rpi to run at 921600bps baudrate, consistent with the setup on Pixhawk's serials. See [Companion Computers](http://ardupilot.org/dev/docs/companion-computers.html) page in the ArduPilot dev wiki.
 
 #### Ground control station
 1. A Linux computer. (Virtual machines are okay)
 2. A GNSS module (e.g. u-blox M8N).
 3. An XBee module with a USB adapter. (e.g. XBee S1, XBee S2C, etc.)
+
 __Connection example:__ Both the GNSS module and the XBee module are connected via USB. If you are using an embbeded devices such as the Raspberry Pi, hardware serial interfaces are also supported.
 
 #### Software-in-the-loop (SITL) simulation
