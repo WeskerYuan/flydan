@@ -37,7 +37,7 @@ __Connection example:__ The XBee modules is connected to the RPi via USB, and th
 2. A GNSS module (e.g. u-blox M8N).
 3. An XBee module with a USB adapter. (e.g. XBee S1, XBee S2C, etc.)
 
-__Connection example:__ Both the GNSS module and the XBee module are connected via USB. If you are using an embbeded devices such as the Raspberry Pi, hardware serial interfaces are also supported.
+__Connection example:__ Both the GNSS module and the XBee module are connected via USB. If one is using an embbeded device such as the Raspberry Pi, hardware serial interfaces are also supported.
 
 #### Software-in-the-loop (SITL) simulation
 1. A Linux computer. (Virtual machines are okay, but must be x86 compatible)
