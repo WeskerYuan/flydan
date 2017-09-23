@@ -105,49 +105,49 @@ For SITL simulation with multiple drones, the firmware should be compiled with d
 
 #### Building the firmware
 1. Install git and clone the repository.
-```shell
-git clone https://github.com/ardupilot/ardupilot
-git submodule update --recursive
-```
+    ```shell
+    git clone https://github.com/ardupilot/ardupilot
+    git submodule update --recursive
+    ```
 2. Checkout to the desired branch (List available tags by `git tag`).
-```shell
-git checkout Copter-3.5.2
-```
+    ```shell
+    git checkout Copter-3.5.2
+    ```
 3. (__CRITICAL!__) Modify the TCP ports accordingly. Once built/compiled, the TCP ports for SITLare hard-coded in the firmware. Each simulated copter has its own firmware binary, coded with its assigned TCP ports.
 
-a. Open the file `ardupilot/libraries/AP_HAL_SITL/SITL_cmdline.cpp` and locate:
-```c++
-const int BASE_PORT = 5760;
-const int RCIN_PORT = 5501;
-const int RCOUT_PORT = 5502;
-const int FG_VIEW_PORT = 5503;
+    a. Open the file `ardupilot/libraries/AP_HAL_SITL/SITL_cmdline.cpp` and locate:
+    ```c++
+    const int BASE_PORT = 5760;
+    const int RCIN_PORT = 5501;
+    const int RCOUT_PORT = 5502;
+    const int FG_VIEW_PORT = 5503;
 
-const int SIM_IN_PORT = 9003;
-const int SIM_OUT_PORT = 9002;
-const int IRLOCK_PORT = 9005;
-```
-b. Mmodify these ports if necessary without overlapping.
+    const int SIM_IN_PORT = 9003;
+    const int SIM_OUT_PORT = 9002;
+    const int IRLOCK_PORT = 9005;
+    ```
+    b. Mmodify these ports if necessary without overlapping.
 
 4. (__CRITICAL!__) Modify MAVlink system ID
 
-a. Open the file `ardupilot/ArduCopter/config.h` and locate:
-```c++
-#ifndef MAV_SYSTEM_ID
-   # define MAV_SYSTEM_ID          1
-#endif 
-```
-b. Modify the macro for different firmware compilation. This macro `MAV_SYSTEM_ID` is copied into parameter `SYSID_THISMAV` in the firmware as the default value. Make sure each built firmware has a unique system ID so that the GCS can recognize them as different vehicles.
+    a. Open the file `ardupilot/ArduCopter/config.h` and locate:
+    ```c++
+    #ifndef MAV_SYSTEM_ID
+    # define MAV_SYSTEM_ID          1
+    #endif 
+    ```
+    b. Modify the macro for different firmware compilation. This macro `MAV_SYSTEM_ID` is copied into parameter `SYSID_THISMAV` in the firmware as the default value. Make sure each built firmware has a unique system ID so that the GCS can recognize them as different vehicles.
 
 5. Configure for WAF building.
-```shell
-cd ardupilot
-./waf clean
-./waf distclean
-./waf configure
-./waf configure --board=sitl
-./waf --targets=bin/arducopter 
-```
-Use `>> ./waf list` to see available targets.
+    ```shell
+    cd ardupilot
+    ./waf clean
+    ./waf distclean
+    ./waf configure
+    ./waf configure --board=sitl
+    ./waf --targets=bin/arducopter 
+    ```
+    Use `>> ./waf list` to see available targets.
 6. After the build completed, locate the firmware binaries in `ardupilot/build/sitl/bin/` and copy the compiled firmware to the folder containing the firmwares and rename the file with suffix "portABCD" where "ABCD" is the four digit TCP port (e.g. "ac3.5.2_port6760"). This naming rule is coded in the script with regular expressions. One may change to another naming convention and the ports should be consistent with the firmware before building.
 7. Prepare the default eeprom binaries and put it under the same folder with the firmwares. See next section for details.
 
@@ -166,18 +166,18 @@ saved in the simulated `eeprom.bin`, located in the temp directory `<FILESYSTEM>
 
 1. Reboot your Linux system and clear the tmp files. In Ubuntu, the tmp files are automatically cleared on boot.
 2. Run the dronekit-sitl in terminal and specify the corresponding firmware. 
-```shell   
-dronekit-sitl ./fw/ac3.5.2_port5760
-```
+    ```shell   
+    dronekit-sitl ./fw/ac3.5.2_port5760
+    ```
 3. Open another terminal and spawn MAVProxy to connect the dronekit-sitl instantce (ports may vary depending on the compiled firmware).
-```shell
-mavproxy.py --master tcp:127.0.0.1:5760 --sitl 127.0.0.1:5501 --out 127.0.0.1:14550 --out 127.0.0.1:14551
-```
-If there is no `default_eeprom.bin` when running the dronekit-sitl, there should be some PreArm warnings like "RC not calibrated" "ACC not calibrated". This is the correct behavior, since there's no EEPROM and the parameters are all "clean".
+    ```shell
+    mavproxy.py --master tcp:127.0.0.1:5760 --sitl 127.0.0.1:5501 --out 127.0.0.1:14550 --out 127.0.0.1:14551
+    ```
+    If there is no `default_eeprom.bin` when running the dronekit-sitl, there should be some PreArm warnings like "RC not calibrated" "ACC not calibrated". This is the correct behavior, since there's no EEPROM and the parameters are all "clean".
         
 4. Load the parameters from a file and overwrite the `eeprom.bin` use `param load <FILE_PATH>/<NAME>.parm` and the warnings should be cleared.
 5. After the parameters are loaded, search in the filesystem `eeprom.bin` in `<File System>/tmp/`. Find the latest accessed `eeprom.bin` and copy it to the folder that holds the compiled firmwares, and rename it to `default_eeprom.bin` (this name is hard-coded in dronekit-sitl).
 6. Kill all MAVProxy and dronekit-sitl, reboot the system and repeat steps 2 and 3. There should not be any PreArm warnings before takeoff. Try showing some of the parameters and check if they are consistent with the parameter list by `>> param show <PARAM_NAME>`.
     
-__Note:__ For multi copter situations with all the compiled firmwares in the same folder, they share the same `default_eeprom.bin`. If one need to prepare different parameters for different drones, isolate them in different folders.
+    __Note:__ For multi copter situations with all the compiled firmwares in the same folder, they share the same `default_eeprom.bin`. If one need to prepare different parameters for different drones, isolate them in different folders.
 
