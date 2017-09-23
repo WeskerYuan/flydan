@@ -94,7 +94,7 @@ iii. Field test and script execution
     3. Wait until satellites number fit the requirement, preferably over 10
         satellites or HDOP <= 1.4
     4. (Optional) One may try to arm the copter in Loiter mode. If it is possible 
-        to arm, than the GNSS signal is good enough.
+        to arm, then the GNSS signal is good enough.
     5. Connect power cable to the RPi and the script will auto-run on boot.
 
 
@@ -121,7 +121,7 @@ iii. Field test and script execution
 II. Run the ground station script on a computer. ==============================
 i. Hardware Requirement 
     Components:
-    1. A linux laptop. (virtual machine is okay)
+    1. A Linux computer. (virtual machine is okay)
     2. A GNSS module. If the GNSS module is identified as an ACM device 
         (e.g./dev/ttyACM0), one will need to do a walkaround method. If it is 
         identified as a standard USB device, like /dev/ttyUSB0, then nothing
@@ -179,7 +179,7 @@ iii. Script Execution
     
 III. Run the SITL simulation script on a computer. ============================
 i. Requirement 
-    1. A linux laptop. (virtual machine is okay, but must be x86 compatible)
+    1. A Linux computer. (virtual machine is okay, but must be x86 compatible)
     2. Dronekit-SITL (other native SITLs are also possible)
     3. Dronekit simulation codes
     4. ArduPilot source code and eeprom binaries for the Dronekit-SITL
