@@ -179,5 +179,5 @@ saved in the simulated `eeprom.bin`, located in the temp directory `<FILESYSTEM>
 5. After the parameters are loaded, search in the filesystem `eeprom.bin` in `<File System>/tmp/`. Find the latest accessed `eeprom.bin` and copy it to the folder that holds the compiled firmwares, and rename it to `default_eeprom.bin` (this name is hard-coded in dronekit-sitl).
 6. Kill all MAVProxy and dronekit-sitl, reboot the system and repeat steps 2 and 3. There should not be any PreArm warnings before takeoff. Try showing some of the parameters and check if they are consistent with the parameter list by `>> param show <PARAM_NAME>`.
     
-    __Note:__ For multi copter situations with all the compiled firmwares in the same folder, they share the same `default_eeprom.bin`. If one need to prepare different parameters for different drones, isolate them in different folders.
+__Note:__ For multi copter situations with all the compiled firmwares in the same folder, they share the same `default_eeprom.bin`. If one need to prepare different parameters for different drones, isolate them in different folders.
 
