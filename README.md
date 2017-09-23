@@ -31,12 +31,12 @@ Flydan Project is made available under the permissive open source Apache 2.0 Lic
 4. (Optional) A USB-TTL adapter for debugging (e.g. FT232, CP2102/CP2104, do not use PL2303)
 
 #### Ground control station
-1. A Linux laptop. (Virtual machines are okay)
+1. A Linux computer. (Virtual machines are okay)
 2. A GNSS module (e.g. u-blox M8N).
 3. An XBee module with a USB adapter. (e.g. XBee S1, XBee S2C, etc.)
 
 #### Software-in-the-loop (SITL) simulation
-1. A Linux laptop. (Virtual machines are okay, but must be x86 compatible)
+1. A Linux computer. (Virtual machines are okay, but must be x86 compatible)
 2. The [Dronekit-SITL](http://python.dronekit.io/develop/sitl_setup.html) (Other native SITLs are also possible)
 3. ArduPilot source code and EEPROM binaries for the Dronekit-SITL
 
@@ -102,12 +102,12 @@ For SITL simulation with multiple drones, the firmware should be compiled with d
 #### Building the firmware
 1. Install git and clone the repository.
 ```shell
->> git clone https://github.com/ardupilot/ardupilot
->> git submodule update --recursive
+git clone https://github.com/ardupilot/ardupilot
+git submodule update --recursive
 ```
 2. Checkout to the desired branch (List available tags by `git tag`).
 ```shell
->> git checkout Copter-3.5.2
+git checkout Copter-3.5.2
 ```
 3. (__CRITICAL!__) Modify the TCP ports accordingly. Once built/compiled, the TCP ports for SITLare hard-coded in the firmware. Each simulated copter has its own firmware binary, coded with its assigned TCP ports.
 
@@ -136,12 +136,12 @@ b. Modify the macro for different firmware compilation. This macro `MAV_SYSTEM_I
 
 5. Configure for WAF building.
 ```shell
->> cd ardupilot
->> ./waf clean
->> ./waf distclean
->> ./waf configure
->> ./waf configure --board=sitl
->> ./waf --targets=bin/arducopter 
+cd ardupilot
+./waf clean
+./waf distclean
+./waf configure
+./waf configure --board=sitl
+./waf --targets=bin/arducopter 
 ```
 Use `>> ./waf list` to see available targets.
 6. After the build completed, locate the firmware binaries in `ardupilot/build/sitl/bin/` and copy the compiled firmware to the folder containing the firmwares and rename the file with suffix "portABCD" where "ABCD" is the four digit TCP port (e.g. "ac3.5.2_port6760"). This naming rule is coded in the script with regular expressions. One may change to another naming convention and the ports should be consistent with the firmware before building.
@@ -163,11 +163,11 @@ saved in the simulated `eeprom.bin`, located in the temp directory `<FILESYSTEM>
 1. Reboot your Linux system and clear the tmp files. In Ubuntu, the tmp files are automatically cleared on boot.
 2. Run the dronekit-sitl in terminal and specify the corresponding firmware. 
 ```shell   
->> dronekit-sitl ./fw/ac3.5.2_port5760
+dronekit-sitl ./fw/ac3.5.2_port5760
 ```
 3. Open another terminal and spawn MAVProxy to connect the dronekit-sitl instantce (ports may vary depending on the compiled firmware).
 ```shell
->> mavproxy.py --master tcp:127.0.0.1:5760 --sitl 127.0.0.1:5501 --out 127.0.0.1:14550 --out 127.0.0.1:14551
+mavproxy.py --master tcp:127.0.0.1:5760 --sitl 127.0.0.1:5501 --out 127.0.0.1:14550 --out 127.0.0.1:14551
 ```
 If there is no `default_eeprom.bin` when running the dronekit-sitl, there should be some PreArm warnings like "RC not calibrated" "ACC not calibrated". This is the correct behavior, since there's no EEPROM and the parameters are all "clean".
         
