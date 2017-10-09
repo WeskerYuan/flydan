@@ -43,6 +43,7 @@ __Connection example:__ Both the GNSS module and the XBee module are connected v
 1. A Linux computer. (Virtual machines are okay, but must be x86 compatible)
 2. The [Dronekit-SITL](http://python.dronekit.io/develop/sitl_setup.html) (Other native SITLs are also possible)
 3. ArduPilot source code and EEPROM binaries for the Dronekit-SITL
+4. A supported ground control station (GCS) interface such as the [QGroundControl](http://qgroundcontrol.com/) (QGC)
 
 #### Packages
 1. Linux packages: python-pip python-dev python-serial python-gps gpsd gpsd-clients
