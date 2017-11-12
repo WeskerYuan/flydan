@@ -89,6 +89,13 @@ The program uses `gpsd` for monitoring the GNSS data at background, and we found
     * `'p'`: update algorithm parameter to the drones.
     * `ENTER`: show the keylist.
 
+    A normal takeoff sequence should be:
+    1. press `'s'` to set the current corrdinate as HOME_ORIGIN.
+    2. press `'o'` to broadcast HOME_ORIGIN.
+    3. after all the copters echo 'standby', press `'b'` to take them off.
+    4. press `'t'` to broadcast current locations of the GCS as rendezvous.
+    5. press `'l'` to directly land the drones or `'r'` to return-to-launch.
+    
 #### SITL simulation
 The `fw` folder contains some pre-compiled firmwares and the `default_eeprom.bin` for a flocking test simulation with five drones. Execute the multi-drone simulation test by:
 1. `sh doc/shell/sitl_multirun.sh`.
