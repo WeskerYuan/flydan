@@ -471,7 +471,7 @@ Appendix III. XBee configuration referece.
     Routing Mode:           CE = End Device[2]
     Broadcast Hops:         BH = 1 (for follower agents)    BH = 0 (maximum hop, for groundstation)
     Node Identifier:        NI = <string>
-    Baudrate:               BD = 57600  (115200 will stuck. it's a hardware glitch for Xbee S1 series)
+    Baudrate:               BD = 57600  (115200 will stuck. it's a hardware glitch for Xbee S1 series. S2C series work fine with 230400.)
     API mode:               AP = API mode with escapes [2]
     DIO6/RTS:               D6 = RTS flow control [1]
 
