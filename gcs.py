@@ -299,7 +299,7 @@ def main():
     
     fparam = args.param
 
-    ser = serial.Serial(args.xbee, 57600)
+    ser = serial.Serial(args.xbee, 230400)
     xbee = comm.xbee_init(ser)
     util.log_info("Xbee initialized.")
 

@@ -183,7 +183,7 @@ def main():
     util.log_info("Algorithm: %s" % shared.CURRENT_ALGORITHM)
     util.log_info("Agent type: %s" % shared.AGENT_CHARACTER)
 
-    ser = serial.Serial(args.xbee, 57600)
+    ser = serial.Serial(args.xbee, 230400)
     xbee = comm.xbee_init(ser)
     util.log_info("Xbee initialized.")
 
