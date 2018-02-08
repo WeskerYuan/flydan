@@ -734,7 +734,7 @@ class SquareRoute(threading.Thread):
         comm.xbee_broadcast(self._xbee, info)
         util.log_info(info)
         
-        EDGE_LEN = 20.0 # square edge length
+        EDGE_LEN = 7.0 # square edge length
         WP_GSPEED = 1.0 # groundspeed for navigating
         edge_count = 0 # a counter holding which edge the copter is on
         old_gspeed = self._vehicle.groundspeed # log original gspeed

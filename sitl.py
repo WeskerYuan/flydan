@@ -235,7 +235,7 @@ def main():
     print "Connecting to copter on: TCP: 127.0.0.1:%s" % port
     copter = nav.connect('tcp:127.0.0.1:%s' % port, wait_ready=True, rate=20)
     util.log_info("Copter connected. Firmware: %s" % copter.version)
-
+    
     if not args.xbee: # simulate XBee using ZeroMQ
         [pub, sub] = comm.zmq_init(comm_port_list[shared.AGENT_ID], comm_port_list)
         subscriber_thread = comm.Subscriber(shared.AGENT_ID, sub)
@@ -247,7 +247,10 @@ def main():
         ser = serial.Serial(args.xbee, 57600)
         xbee = comm.xbee_init(ser)
         util.log_info("Xbee initialzed.")
-        
+
+    info = "IFO,%s connected with firmware %s" % (shared.AGENT_ID, copter.version)
+    comm.xbee_broadcast(xbee, info)
+
     _add_listeners(copter)
 
     takeoff_thread = nav.Takeoff(copter, xbee, shared.des_alt, 3)

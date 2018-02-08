@@ -18,6 +18,8 @@ Fudan University ([FDU](www.fudan.edu.cn)).
 #### License
 Flydan Project is made available under the permissive open source Apache 2.0 License.
 
+#### Coding convention
+This project is entirely written in Python 2.7, under the convention of [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html).
 ---
 
 ### System requirement

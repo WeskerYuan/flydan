@@ -189,7 +189,9 @@ def main():
 
     copter = nav.connect(args.pix, baud=921600, wait_ready=True, rate=20)
     util.log_info("Copter connected. Firmware: %s" % copter.version)
-
+    info = "IFO,%s connected with firmware %s" % (shared.AGENT_ID, copter.version)
+    comm.xbee_broadcast(xbee, info)
+    
     _add_listeners(copter)
 
     takeoff_thread = nav.Takeoff(copter, xbee, shared.des_alt, 3)

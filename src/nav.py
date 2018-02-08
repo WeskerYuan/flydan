@@ -553,7 +553,7 @@ def send_ned_velocity(vehicle, velocity_x, velocity_y, velocity_z, duration):
     See the above link for information on the type_mask (0=enable, 1=ignore). 
     At time of writing, acceleration and yaw bits are ignored.
     
-    The sending rate is boosted to 10Hz, and uses xrange() generator. [x, y, z]
+    The sending rate is boosted to 4Hz, and uses xrange() generator. [x, y, z]
     corresponds to the NED frame order.
     
     Args:
@@ -573,10 +573,22 @@ def send_ned_velocity(vehicle, velocity_x, velocity_y, velocity_z, duration):
         0, 0, 0, # x, y, z acceleration (not supported yet, ignored in GCS_Mavlink)
         0, 0)    # yaw, yaw_rate (not supported yet, ignored in GCS_Mavlink) 
 
-    # send command to vehicle on 10 Hz cycle
-    for x in xrange(0, int(10*duration)):
+    # mavlink message resending rate (Hz)
+    resend_rate = 4
+    resend_period = 1.0 / resend_rate
+
+    if duration > 0:
+        # divide multiplied duration into fractional and integer parts
+        modf = math.modf(duration*resend_rate)
+
+        # send message for the fractional time ( < 1 sec)
         vehicle.send_mavlink(msg)
-        time.sleep(.10)
+        time.sleep(modf[0]*resend_period)
+
+        # send the message with the period
+        for x in xrange(0, int(modf[1])):
+            vehicle.send_mavlink(msg)
+            time.sleep(resend_period)
 
 def send_global_velocity(vehicle, velocity_x, velocity_y, velocity_z, duration):
     """
@@ -594,7 +606,7 @@ def send_global_velocity(vehicle, velocity_x, velocity_y, velocity_z, duration):
     See the above link for information on the type_mask (0=enable, 1=ignore). 
     At time of writing, acceleration and yaw bits are ignored.
     
-    The sending rate is boosted to 10Hz, and uses xrange() generator. [x, y, z]
+    The sending rate is boosted to 4Hz, and uses xrange() generator. [x, y, z]
     corresponds to the NED frame order.
     
     Args:
@@ -619,10 +631,22 @@ def send_global_velocity(vehicle, velocity_x, velocity_y, velocity_z, duration):
         0, 0, 0, # afx, afy, afz acceleration (not supported yet, ignored in GCS_Mavlink)
         0, 0)    # yaw, yaw_rate (not supported yet, ignored in GCS_Mavlink) 
 
-    # send command to vehicle on 10 Hz cycle
-    for x in xrange(0, int(10*duration)):
+    # mavlink message resending rate (Hz)
+    resend_rate = 4
+    resend_period = 1.0 / resend_rate
+
+    if duration > 0:
+        # divide multiplied duration into fractional and integer parts
+        modf = math.modf(duration*resend_rate)
+
+        # send message for the fractional time ( < 1 sec)
         vehicle.send_mavlink(msg)
-        time.sleep(.10)
+        time.sleep(modf[0]*resend_period)
+
+        # send the message with the period
+        for x in xrange(0, int(modf[1])):
+            vehicle.send_mavlink(msg)
+            time.sleep(resend_period)
     
 """
 Functions to move the vehicle to a specified position (as opposed to controlling movement by setting velocity components).
