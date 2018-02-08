@@ -18,6 +18,12 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
+V2.1.0 2018.02.08 ----------------------------------------------------------
+--- General ---
+1) Improved velocity control Mavlink message sending timing.
+2) Added vhecile connection status report via XBee.
+3) Minor bug fix.
+
 V2.0.0 2017.09.20 ----------------------------------------------------------
 --- General ---
 1) Bump to V2.0.0. 
