@@ -88,6 +88,7 @@ from src import comm
 from src import util
 from src import shared
 
+MIN_SAT_NUM = 7 # minimum satellites number required
 
 class GNSS(threading.Thread):
     """
@@ -109,7 +110,7 @@ class GNSS(threading.Thread):
 
         while not self._stopflag:
             time.sleep(.1)    # 10Hz polling
-            val = self._gpsd.next()
+            self._gpsd.next()
             # if there is no GNSS module and this method is called, the thread
             # may stuck here.
             # TODO(Q.Yuan): try to fix or walkaround this bug.
@@ -303,7 +304,6 @@ def main():
     xbee = comm.xbee_init(ser)
     util.log_info("Xbee initialized.")
 
-    MIN_SAT_NUM = 7 # minimum satellites number required
     gpsd = gps.gps() # in some cases, the gpsd need to be flushed and reset
     gps_thread = GNSS(gpsd)
     gps_thread.start()
