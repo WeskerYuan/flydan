@@ -43,6 +43,7 @@ __Connection example:__ The XBee modules is connected to the RPi via USB, and th
 __Connection example:__ Both the GNSS module and the XBee module are connected via USB. If one is using an embbeded device such as the Raspberry Pi, hardware serial interfaces are also supported.
 
 #### Software-in-the-loop (SITL) simulation
+0. __!!IMPORTANT!!!__ This SITL is compatible with dronekit-sitl V3.2.0 only! Use `pip install dronekit-sitl==3.2.0` when installing it. Code tested with dronekit V2.9.1 and dronekit-sitl V3.2.0.
 1. A Linux computer. (Virtual machines are okay, but must be x86 compatible)
 2. The [Dronekit-SITL](http://python.dronekit.io/develop/sitl_setup.html) (Other native SITLs are also possible)
 3. ArduPilot source code and EEPROM binaries for the Dronekit-SITL
